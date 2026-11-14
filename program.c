@@ -19,15 +19,75 @@ int main() {
   double H_0 = 500;
   double v_0 = 10;
   double F_c = 45000;
-  double g = 1.6;
+
+  char strH0[20];
+    char strV0[20];
+    char strm[20];
+    char strFc[30];
+
+
+
+    doubleToString(H_0, strH0, sizeof(strH0));
+    doubleToString(v_0, strV0, sizeof(strV0));
+    doubleToString(m, strm, sizeof(strm));
+    doubleToString(F_c, strFc, sizeof(strFc));
+
+    char buffer[100];
+    snprintf(buffer,sizeof(buffer),"m= %skg, H_0=%sm, v_0=%sm/s, F_c = %sN", strm, strH0, strV0, strFc);
+    printf("%s\n", buffer);
+ while (1) {
+        char dec;
+        printf("Do you want to change the default data? (y/n)\n");
+        scanf(" %c", &dec); 
+        
+        if (dec == 'y' || dec == 'Y') {
+            printf("Which one? (m, H, v, F)\n");
+            char param;
+            scanf(" %c", &param);
+            
+            printf("Enter new value: ");
+            if (param == 'm' || param == 'M') {
+                scanf("%lf", &m);
+            } else if (param == 'h' || param == 'H') {
+                scanf("%lf", &H_0);
+            } else if (param == 'v' || param == 'V') {
+                scanf("%lf", &v_0);
+            } else if (param == 'f' || param == 'F') {
+                scanf("%lf", &F_c);
+            } else {
+                printf("Unknown parameter!\n");
+                continue;
+            }
+            
+            doubleToString(H_0, strH0, sizeof(strH0));
+            doubleToString(v_0, strV0, sizeof(strV0));
+            doubleToString(m, strm, sizeof(strm));
+            doubleToString(F_c, strFc, sizeof(strFc));
+
+            snprintf(buffer, sizeof(buffer), "m= %skg, H_0=%sm, v_0=%sm/s, F_c = %sN", strm, strH0, strV0, strFc);
+            printf("Updated: %s\n\n", buffer);
+        } else {
+            break;
+        }
+    }
+
+    printf("\nStarting simulation... Press SPACE to toggle engine.\n");
+
+  const double g = 1.6;
   double H = H_0;
   double v = v_0;
   bool turnedOn = false;
   while (H > 0)
   {
+    double acceleration = g;
+    if (turnedOn) 
+    {
+      acceleration -= (F_c / m);
+    }
     H -= v;
-    v += g;
+    v += acceleration;
     char strH[20], strV[20];
+    
 
     doubleToString(H, strH, sizeof(strH));
     doubleToString(v, strV, sizeof(strV));
