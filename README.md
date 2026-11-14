@@ -1,1 +1,4 @@
 # Lander
+Project made for recruitment to scientific circle. It is basically a text simulator of landing on the moon. The lander lands when the eventual velocity is smaller than 1 m/s. 
+# Running program
+When you run the program.exe, you're going to be asked if you'd like to change the starting data. You can provide Y for yes and N for no both lowercase and uppercase. If you want to change something, you need to provide one of a few letters: m for mass, v for speed, h for height, f for thrust force and n for filename (name of the csv file). After setting the initial data, the simulation is starting. You need to press space to toggle the thrusters. Thern the velocity is changed and you're able to succesfully land. The program is also exporting the log to a csv file. The example file is in the output folder and also the diagram showing velocity and height relative to time. (Keep in mind that the program is not creating a diagram.)
